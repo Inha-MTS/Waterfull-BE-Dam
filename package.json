@@ -1,8 +1,8 @@
 {
-  "name": "waterfull-be-dam",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "name": "Waterfull-BE-DAM",
+  "version": "1.0.0",
+  "description": "DAM - Waterfull's Backend",
+  "author": "HYOSITIVE",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
