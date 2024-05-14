@@ -13,4 +13,11 @@ export class MajorsService {
     return createdMajor.save();
   }
 
+  async createMajorBatch(createMajorDtos: CreateMajorDto[]) {
+    await Promise.all(
+      createMajorDtos.map((createMajorDto: CreateMajorDto) =>
+        this.createMajor(createMajorDto),
+      ),
+    );
+  }
 }
