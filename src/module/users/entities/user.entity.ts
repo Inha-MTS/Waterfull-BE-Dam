@@ -10,7 +10,7 @@ export class User {
   name: string;
 
   @Prop()
-  facialVector: number[];
+  imageUrl: string;
 
   @Prop()
   point: number;
