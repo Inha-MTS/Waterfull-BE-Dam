@@ -15,6 +15,9 @@ export class User {
   @Prop()
   point: number;
 
+  @Prop()
+  lastPointTimestp: Date;
+
   @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Major' }] })
   major: Major;
 }
