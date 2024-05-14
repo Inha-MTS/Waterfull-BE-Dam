@@ -4,7 +4,7 @@ import { Major } from 'src/module/majors/entities/major.entity';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ autoCreate: true })
 export class User {
   @Prop()
   name: string;
