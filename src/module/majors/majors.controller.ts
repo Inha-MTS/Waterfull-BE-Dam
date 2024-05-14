@@ -16,4 +16,15 @@ export class MajorsController {
     await this.majorsService.createMajor(createMajorDto);
   }
 
+  /**
+   * @route POST /majors/batch
+   * @desc Create Majors in Batch
+   * @access Public
+   */
+  @Post('/batch')
+  async createMajorBatch(
+    @Body() createMajorDtos: CreateMajorDto[],
+  ): Promise<void> {
+    await this.majorsService.createMajorBatch(createMajorDtos);
+  }
 }
