@@ -11,9 +11,9 @@ export class MajorsController {
    * @desc Create Major
    * @access Public
    */
-
   @Post()
   async createMajor(@Body() createMajorDto: CreateMajorDto): Promise<void> {
     await this.majorsService.createMajor(createMajorDto);
   }
+
 }
