@@ -6,8 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './module/users/users.module';
 import { MajorsModule } from './module/majors/majors.module';
 import { PointsModule } from './module/points/points.module';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from 'response.interceptor';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { HttpExceptionFilter } from 'http-exception.filter';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
   controllers: [AppController],
   providers: [
     AppService,
+    { provide: APP_FILTER, useClass: HttpExceptionFilter },
     { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
   ],
 })
