@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './module/users/users.module';
 import { MajorsModule } from './module/majors/majors.module';
 import { PointsModule } from './module/points/points.module';
+import { ResponseInterceptor } from 'response.interceptor';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -19,6 +21,9 @@ import { PointsModule } from './module/points/points.module';
     PointsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
+  ],
 })
 export class AppModule {}
