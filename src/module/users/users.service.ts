@@ -9,19 +9,11 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async createUser(createUserDto: CreateUserDto) {
-    const { images: imageStrings, type } = createUserDto;
-    const images = imageStrings.map((imageString: string) =>
-      Buffer.from(
-        imageString.replace(/^data:image\/\w+;base64,/, ''),
-        'base64',
-      ),
-    );
-    if (type === 'card') {
-      // use ocr to verify the user
-    }
-    if (type === 'face') {
-      // use face recognition to verify the user
-    }
-    return images;
+    const newUser = new this.userModel(createUserDto);
+    const { id } = await newUser.save();
+    return {
+      message: 'CREATED USER',
+      data: { id },
+    };
   }
 }
