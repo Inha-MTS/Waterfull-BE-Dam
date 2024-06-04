@@ -6,19 +6,22 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema({ autoCreate: true })
 export class User {
-  @Prop()
+  @Prop({ unique: true, required: true })
+  id: number;
+
+  @Prop({ required: true })
   name: string;
 
   @Prop()
   imageUrl: string;
 
-  @Prop()
+  @Prop({ default: 0 })
   point: number;
 
   @Prop()
   lastPointTimestp: Date;
 
-  @Prop({ type: [{ type: mongooseSchema.Types.ObjectId, ref: 'Major' }] })
+  @Prop({ type: mongooseSchema.Types.ObjectId, ref: 'Major' })
   major: Major;
 }
 
