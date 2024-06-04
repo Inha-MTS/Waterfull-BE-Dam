@@ -13,7 +13,7 @@ export class User {
   name: string;
 
   @Prop()
-  imageUrl: string;
+  faceId: string;
 
   @Prop({ default: 0 })
   point: number;
