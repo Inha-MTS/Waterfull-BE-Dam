@@ -1,4 +1,7 @@
+import { Schema } from 'mongoose';
+
 export interface CreateUserDto {
-  images: string[];
-  type: string;
+  id: number;
+  name: string;
+  major: Schema.Types.ObjectId;
 }
