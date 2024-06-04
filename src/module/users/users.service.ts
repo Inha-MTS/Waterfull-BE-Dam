@@ -35,12 +35,25 @@ export class UsersService {
         }),
       );
 
-      console.log(id, faceId); // insert face id here
+      const updatedUser = await this.#registerFaceIdInMongo(id, faceId);
+      return {
+        message: 'UPDATED USER',
+        data: { id: updatedUser.id },
+      };
     } catch (error) {
       if (error instanceof AxiosError) {
         throw new Error('Axios error happened');
       }
       throw new Error('DB error happened');
     }
+  }
+
+  async #registerFaceIdInMongo(id: number, faceId: string) {
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { id },
+      { faceId },
+      { new: true },
+    );
+    return updatedUser;
   }
 }
