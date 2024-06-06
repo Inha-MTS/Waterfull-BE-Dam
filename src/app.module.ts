@@ -3,10 +3,10 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './module/users/users.module';
 import { MajorsModule } from './module/majors/majors.module';
-import { PointsModule } from './module/points/points.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from 'response.interceptor';
 import { HttpExceptionFilter } from 'http-exception.filter';
+import { BottlesModule } from './module/bottles/bottles.module';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { HttpExceptionFilter } from 'http-exception.filter';
     MongooseModule.forRoot(process.env.MONGODB_URI),
     UsersModule,
     MajorsModule,
-    PointsModule,
+    BottlesModule,
   ],
   controllers: [],
   providers: [
