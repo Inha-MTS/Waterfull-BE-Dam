@@ -26,7 +26,7 @@ export class UsersService {
     };
   }
 
-  async loginUser(loginUserDto: LoginUserDto) {
+  loginUser(loginUserDto: LoginUserDto) {
     const { type, id, image } = loginUserDto;
     if (type === 'face') {
       return this.#loginUserWithFaceId(image);
@@ -39,7 +39,20 @@ export class UsersService {
   }
 
   async #loginUserWithStudentId(id: number) {
-    console.log(id);
+    const user = await this.userModel.findOne({ id });
+    if (!user) {
+      throw new HttpException(
+        {
+          message: responseMessage.USER_NOT_FOUND,
+        },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+    return {
+      status: HttpStatus.OK,
+      message: responseMessage.LOGIN_USER_SUCCESS,
+      data: { id: user.id },
+    };
   }
 
   async registerFaceId(registerFaceImageDto: RegisterFaceImageDto) {

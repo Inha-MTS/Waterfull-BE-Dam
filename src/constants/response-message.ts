@@ -4,4 +4,5 @@ export const responseMessage = {
   LOGIN_USER_SUCCESS: '로그인 성공',
   AXIOS_ERROR: 'Axios 에러',
   INTERNAL_SERVER_ERROR: '서버 내부 에러',
+  USER_NOT_FOUND: '유저를 찾을 수 없습니다',
 };
