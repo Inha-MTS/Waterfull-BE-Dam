@@ -143,4 +143,26 @@ export class UsersService {
     );
     return updatedUser;
   }
+
+  async getUser(id: number) {
+    const user = await this.userModel.findOne({ id }).populate('major');
+    if (!user) {
+      throw new HttpException(
+        {
+          message: responseMessage.USER_NOT_FOUND,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return {
+      message: responseMessage.GET_USER_SUCCESS,
+      data: {
+        id: user.id,
+        name: user.name,
+        major: user.major.name,
+        point: user.point,
+        faceId: user.faceId,
+      },
+    };
+  }
 }

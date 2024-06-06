@@ -4,6 +4,8 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -51,5 +53,15 @@ export class UsersController {
   @Post('/face-image')
   async registerFaceId(@Body() registerFaceImageDto: RegisterFaceImageDto) {
     return this.usersService.registerFaceId(registerFaceImageDto);
+  }
+
+  /**
+   * @route GET /users/:id
+   * @desc Get User Info
+   * @access Public
+   */
+  @Get('/:id')
+  async getUser(@Param('id') id: number) {
+    return this.usersService.getUser(id);
   }
 }
