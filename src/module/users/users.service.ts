@@ -67,6 +67,14 @@ export class UsersService {
       );
 
       const updatedUser = await this.#registerFaceIdInMongo(id, faceId);
+      if (!updatedUser) {
+        throw new HttpException(
+          {
+            message: responseMessage.USER_NOT_FOUND,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
       return {
         message: responseMessage.REGISTER_FACE_ID_SUCCESS,
         data: { id: updatedUser.id },
