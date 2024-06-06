@@ -83,7 +83,7 @@ export class UsersService {
       if (error instanceof AxiosError) {
         throw new HttpException(
           {
-            message: responseMessage.AXIOS_ERROR,
+            message: responseMessage.AXIOS_ERRORS[500],
           },
           HttpStatus.INTERNAL_SERVER_ERROR,
         );
