@@ -21,10 +21,13 @@ export class ResponseInterceptor<S, T>
     next: CallHandler,
   ): Observable<Response<S, T>> {
     const status = context.switchToHttp().getResponse().statusCode;
-    return next
-      .handle()
-      .pipe(
-        map(({ message, data }) => ({ status, success: true, message, data })),
-      );
+    return next.handle().pipe(
+      map(({ status: customStatus, message, data }) => ({
+        status: customStatus ?? status,
+        success: true,
+        message,
+        data,
+      })),
+    );
   }
 }
