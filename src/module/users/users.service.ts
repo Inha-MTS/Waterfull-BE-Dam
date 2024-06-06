@@ -7,6 +7,7 @@ import { HttpService } from '@nestjs/axios';
 import { RegisterFaceImageDto } from './dto/register-face-image.dto';
 import { firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
+import { responseMessage } from 'src/constants/response-message';
 
 @Injectable()
 export class UsersService {
@@ -19,7 +20,7 @@ export class UsersService {
     const newUser = new this.userModel(createUserDto);
     const { id } = await newUser.save();
     return {
-      message: 'CREATED USER',
+      message: responseMessage.CREATE_USER_SUCCESS,
       data: { id },
     };
   }
@@ -37,7 +38,7 @@ export class UsersService {
 
       const updatedUser = await this.#registerFaceIdInMongo(id, faceId);
       return {
-        message: 'UPDATED USER',
+        message: responseMessage.REGISTER_FACE_ID_SUCCESS,
         data: { id: updatedUser.id },
       };
     } catch (error) {
