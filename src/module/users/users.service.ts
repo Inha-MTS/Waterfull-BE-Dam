@@ -7,6 +7,7 @@ import { HttpService } from '@nestjs/axios';
 import { RegisterFaceImageDto } from './dto/register-face-image.dto';
 import { firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
+import { LoginUserDto } from './dto/login-user.dto';
 import { responseMessage } from 'src/constants/response-message';
 
 @Injectable()
@@ -23,6 +24,22 @@ export class UsersService {
       message: responseMessage.CREATE_USER_SUCCESS,
       data: { id },
     };
+  }
+
+  async loginUser(loginUserDto: LoginUserDto) {
+    const { type, id, image } = loginUserDto;
+    if (type === 'face') {
+      return this.#loginUserWithFaceId(image);
+    }
+    return this.#loginUserWithStudentId(id);
+  }
+
+  async #loginUserWithFaceId(image: string) {
+    console.log(image);
+  }
+
+  async #loginUserWithStudentId(id: number) {
+    console.log(id);
   }
 
   async registerFaceId(registerFaceImageDto: RegisterFaceImageDto) {
