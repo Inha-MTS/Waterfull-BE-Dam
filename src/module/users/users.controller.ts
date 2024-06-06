@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Get,
   Param,
+  Patch,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -63,5 +64,15 @@ export class UsersController {
   @Get('/:id')
   async getUser(@Param('id') id: number) {
     return this.usersService.getUser(id);
+  }
+
+  /**
+   * @route PATCH /users/:id/point
+   * @desc Add User Point
+   * @access Public
+   */
+  @Patch('/:id/point')
+  async addUserPoint(@Param('id') id: number) {
+    return this.usersService.addUserPoint(id);
   }
 }

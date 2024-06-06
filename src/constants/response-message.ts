@@ -13,4 +13,5 @@ export const responseMessage = {
   USER_NOT_FOUND: '유저를 찾을 수 없습니다',
   GET_USER_SUCCESS: '유저 조회 성공',
   GET_MAJOR_LIST_SUCCESS: '전공 리스트 조회 성공',
+  ADD_USER_POINT_SUCCESS: '포인트 적립 성공',
 };

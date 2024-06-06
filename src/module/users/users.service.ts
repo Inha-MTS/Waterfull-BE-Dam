@@ -165,4 +165,16 @@ export class UsersService {
       },
     };
   }
+
+  async addUserPoint(id: number) {
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { id },
+      { $inc: { point: 100 } },
+      { new: true },
+    );
+    return {
+      message: responseMessage.ADD_USER_POINT_SUCCESS,
+      data: { id: updatedUser.id, point: updatedUser.point },
+    };
+  }
 }
