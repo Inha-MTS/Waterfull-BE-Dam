@@ -12,4 +12,5 @@ export const responseMessage = {
   INTERNAL_SERVER_ERROR: '서버 내부 에러',
   USER_NOT_FOUND: '유저를 찾을 수 없습니다',
   GET_USER_SUCCESS: '유저 조회 성공',
+  GET_MAJOR_LIST_SUCCESS: '전공 리스트 조회 성공',
 };

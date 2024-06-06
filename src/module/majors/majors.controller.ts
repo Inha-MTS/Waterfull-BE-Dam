@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { MajorsService } from './majors.service';
 import { CreateMajorDto } from './dto/create-major.dto';
 
@@ -26,5 +26,15 @@ export class MajorsController {
     @Body() createMajorDtos: CreateMajorDto[],
   ): Promise<void> {
     await this.majorsService.createMajorBatch(createMajorDtos);
+  }
+
+  /**
+   * @route GET /majors
+   * @desc Get Major List
+   * @access Public
+   */
+  @Get()
+  async getUMajors() {
+    return this.majorsService.getMajors();
   }
 }

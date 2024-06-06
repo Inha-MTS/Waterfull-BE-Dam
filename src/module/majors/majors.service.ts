@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Major } from './entities/major.entity';
 import { CreateMajorDto } from './dto/create-major.dto';
+import { responseMessage } from 'src/constants/response-message';
 
 @Injectable()
 export class MajorsService {
@@ -20,5 +21,17 @@ export class MajorsService {
       },
     );
     return this.MajorModel.insertMany(createdMajors);
+  }
+
+  async getMajors() {
+    const majors = await this.MajorModel.find();
+    console.log(majors);
+    return {
+      message: responseMessage.GET_MAJOR_LIST_SUCCESS,
+      data: majors.map((major) => ({
+        name: major.name,
+        department: major.department,
+      })),
+    };
   }
 }
