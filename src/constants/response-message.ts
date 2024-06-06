@@ -14,4 +14,6 @@ export const responseMessage = {
   GET_USER_SUCCESS: '유저 조회 성공',
   GET_MAJOR_LIST_SUCCESS: '전공 리스트 조회 성공',
   ADD_USER_POINT_SUCCESS: '포인트 적립 성공',
+  GET_BOTTLE_CATEGORY_SUCCESS: '텀블러 카테고리 조회 성공',
+  NEED_NEW_BOTTLE_IMAGE: '텀블러 이미지 재촬영 필요',
 };
