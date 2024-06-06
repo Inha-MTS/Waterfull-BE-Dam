@@ -35,7 +35,45 @@ export class UsersService {
   }
 
   async #loginUserWithFaceId(image: string) {
-    console.log(image);
+    try {
+      const {
+        data: { face_id: faceId },
+      } = await firstValueFrom(
+        this.httpService.post(process.env.FACE_RECOGNITION_LAMBDA_URL, {
+          image,
+        }),
+      );
+      const user = await this.userModel.findOne({ faceId });
+      if (!user) {
+        throw new HttpException(
+          {
+            message: responseMessage.USER_NOT_FOUND,
+          },
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+      return {
+        status: HttpStatus.OK,
+        message: responseMessage.LOGIN_USER_SUCCESS,
+        data: { id: user.id },
+      };
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const axiosStatus = error.response.status;
+        throw new HttpException(
+          {
+            message: responseMessage.AXIOS_ERRORS[axiosStatus],
+          },
+          axiosStatus || HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+      throw new HttpException(
+        {
+          message: responseMessage.INTERNAL_SERVER_ERROR,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async #loginUserWithStudentId(id: number) {
