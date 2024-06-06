@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -43,9 +43,19 @@ export class UsersService {
       };
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw new Error('Axios error happened');
+        throw new HttpException(
+          {
+            message: responseMessage.AXIOS_ERROR,
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
       }
-      throw new Error('DB error happened');
+      throw new HttpException(
+        {
+          message: responseMessage.INTERNAL_SERVER_ERROR,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
