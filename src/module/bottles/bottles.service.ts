@@ -18,13 +18,18 @@ export class BottlesService {
         }),
       );
       const isImageTrustworthy = probability >= 0.5;
+      const bottleCategory = {
+        0: 'plastic',
+        1: 'paper',
+        2: 'tumbler',
+      }[category];
       return {
         status: isImageTrustworthy ? HttpStatus.OK : HttpStatus.NO_CONTENT,
         message: isImageTrustworthy
           ? responseMessage.GET_BOTTLE_CATEGORY_SUCCESS
           : responseMessage.NEED_NEW_BOTTLE_IMAGE,
         data: {
-          category: category === 1 ? 'tumbler' : 'paper-cup',
+          category: bottleCategory,
           probability,
         },
       };
