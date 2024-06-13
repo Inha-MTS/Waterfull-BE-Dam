@@ -25,10 +25,10 @@ export class MajorsService {
 
   async getMajors() {
     const majors = await this.MajorModel.find();
-    console.log(majors);
     return {
       message: responseMessage.GET_MAJOR_LIST_SUCCESS,
       data: majors.map((major) => ({
+        id: major.name,
         name: major.name,
         department: major.department,
       })),
