@@ -9,12 +9,16 @@ import { firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 import { LoginUserDto } from './dto/login-user.dto';
 import { responseMessage } from 'src/constants/response-message';
+import { UtilsService } from '../utils/utils.service';
+import { AwsService } from '../aws/aws.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     private readonly httpService: HttpService,
+    private readonly utilsService: UtilsService,
+    private readonly awsService: AwsService,
   ) {}
 
   async createUser(createUserDto: CreateUserDto) {
@@ -52,6 +56,9 @@ export class UsersService {
           HttpStatus.UNAUTHORIZED,
         );
       }
+      const fileName = this.utilsService.getImagePathName('face', user.id);
+      const imageBuffer = this.utilsService.convertImageToBuffer(image);
+      this.awsService.uploadImageToS3(fileName, imageBuffer);
       return {
         status: HttpStatus.OK,
         message: responseMessage.LOGIN_USER_SUCCESS,
