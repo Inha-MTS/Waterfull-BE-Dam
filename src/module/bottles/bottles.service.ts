@@ -3,10 +3,16 @@ import { AxiosError } from 'axios';
 import { firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { responseMessage } from 'src/constants/response-message';
+import { UtilsService } from '../utils/utils.service';
+import { AwsService } from '../aws/aws.service';
 
 @Injectable()
 export class BottlesService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly utilsService: UtilsService,
+    private readonly awsService: AwsService,
+  ) {}
 
   async getBottleCategory(image: string) {
     try {
@@ -23,6 +29,9 @@ export class BottlesService {
         1: 'paper',
         2: 'tumbler',
       }[category];
+      const fileName = this.utilsService.getImagePathName(bottleCategory);
+      const imageBuffer = this.utilsService.convertImageToBuffer(image);
+      this.awsService.uploadImageToS3(fileName, imageBuffer);
       return {
         status: isImageTrustworthy ? HttpStatus.OK : HttpStatus.NO_CONTENT,
         message: isImageTrustworthy
