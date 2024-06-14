@@ -62,7 +62,7 @@ export class UsersService {
       return {
         status: HttpStatus.OK,
         message: responseMessage.LOGIN_USER_SUCCESS,
-        data: { id: user.id },
+        data: { id: user.id, name: user.name },
       };
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -96,7 +96,7 @@ export class UsersService {
     return {
       status: HttpStatus.OK,
       message: responseMessage.LOGIN_USER_SUCCESS,
-      data: { id: user.id },
+      data: { id: user.id, name: user.name },
     };
   }
 
