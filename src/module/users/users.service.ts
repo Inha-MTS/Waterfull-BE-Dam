@@ -56,9 +56,9 @@ export class UsersService {
           HttpStatus.UNAUTHORIZED,
         );
       }
-      const fileName = this.utilsService.getImagePathName('face', user.id);
-      const imageBuffer = this.utilsService.convertImageToBuffer(image);
-      this.awsService.uploadImageToS3(fileName, imageBuffer);
+      // const fileName = this.utilsService.getImagePathName('face', user.id);
+      // const imageBuffer = this.utilsService.convertImageToBuffer(image);
+      // this.awsService.uploadImageToS3(fileName, imageBuffer);
       return {
         status: HttpStatus.OK,
         message: responseMessage.LOGIN_USER_SUCCESS,

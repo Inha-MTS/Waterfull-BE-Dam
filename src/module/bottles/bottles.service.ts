@@ -29,9 +29,9 @@ export class BottlesService {
         1: 'paper',
         2: 'tumbler',
       }[category];
-      const fileName = this.utilsService.getImagePathName(bottleCategory);
-      const imageBuffer = this.utilsService.convertImageToBuffer(image);
-      this.awsService.uploadImageToS3(fileName, imageBuffer);
+      // const fileName = this.utilsService.getImagePathName(bottleCategory);
+      // const imageBuffer = this.utilsService.convertImageToBuffer(image);
+      // this.awsService.uploadImageToS3(fileName, imageBuffer);
       return {
         status: isImageTrustworthy ? HttpStatus.OK : HttpStatus.NO_CONTENT,
         message: isImageTrustworthy
