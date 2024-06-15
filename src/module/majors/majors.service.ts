@@ -25,13 +25,17 @@ export class MajorsService {
 
   async getMajors() {
     const majors = await this.MajorModel.find();
+    const groupedMajors = majors.reduce((acc, major) => {
+      const { _id: id, name, department } = major;
+      if (!acc[department]) {
+        acc[department] = [];
+      }
+      acc[department].push({ id: id.toString(), name });
+      return acc;
+    }, {});
     return {
       message: responseMessage.GET_MAJOR_LIST_SUCCESS,
-      data: majors.map((major) => ({
-        id: major.name,
-        name: major.name,
-        department: major.department,
-      })),
+      data: groupedMajors,
     };
   }
 }
