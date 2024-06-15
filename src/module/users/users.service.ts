@@ -122,7 +122,7 @@ export class UsersService {
       }
       return {
         message: responseMessage.REGISTER_FACE_ID_SUCCESS,
-        data: { id: updatedUser.id },
+        data: { id: updatedUser.id, name: updatedUser.name },
       };
     } catch (error) {
       if (error instanceof AxiosError) {
