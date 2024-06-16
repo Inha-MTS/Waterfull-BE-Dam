@@ -22,6 +22,15 @@ export class UsersService {
   ) {}
 
   async createUser(createUserDto: CreateUserDto) {
+    const existingUser = await this.userModel.findOne({ id: createUserDto.id });
+    if (existingUser) {
+      throw new HttpException(
+        {
+          message: responseMessage.USER_ALREADY_EXIST,
+        },
+        HttpStatus.CONFLICT,
+      );
+    }
     const newUser = new this.userModel(createUserDto);
     const { id } = await newUser.save();
     return {
@@ -76,9 +85,9 @@ export class UsersService {
       }
       throw new HttpException(
         {
-          message: responseMessage.INTERNAL_SERVER_ERROR,
+          message: error.message || responseMessage.INTERNAL_SERVER_ERROR,
         },
-        HttpStatus.INTERNAL_SERVER_ERROR,
+        error.status || HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
