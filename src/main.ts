@@ -8,8 +8,9 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.enableCors({
     origin: [
-      process.env.DEPLOYED_FRONTEND_URL,
-      process.env.HEROKU_URL,
+      process.env.FE_AMPLIFY_URL,
+      process.env.FE_HEROKU_URL,
+      process.env.FE_S3_URL,
       'http://localhost:3000',
     ],
     credentials: true,
